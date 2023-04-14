@@ -2,10 +2,10 @@
 
 set -ex
 
-ping="no"
+ping="yes"
 for arg in "$@"; do
   if [[ ${arg} == noping ]]; then
-    ping="yes"
+    ping="no"
   fi
 done
 
