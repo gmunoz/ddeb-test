@@ -3,7 +3,7 @@
 set -ex
 
 apt-get update
-apt-get install -y --no-install-recommends lsb-release
+apt-get install -y --no-install-recommends lsb-release iputils-ping
 
 distro=$(lsb_release -cs)
 readonly distro

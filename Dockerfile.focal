@@ -1,0 +1,5 @@
+FROM ubuntu:focal
+
+COPY ddeb_test.sh /usr/local/bin
+
+CMD ["/usr/local/bin/ddeb_test.sh"]
