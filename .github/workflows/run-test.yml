@@ -17,7 +17,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: docker/setup-buildx-action@v2
-      - uses: docker/build-push-action@v4
+      - name: Build bionic docker image
+        uses: docker/build-push-action@v4
         with:
           context: .
           file: "Dockerfile.bionic"
@@ -30,4 +31,36 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: ddebtest:bionic
+          run: /usr/local/bin/ddeb_test.sh noping
+
+      - name: Build focal docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: "Dockerfile.focal"
+          tags: ddebtest:focal
+          load: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          push: false
+      - name: Run focal test
+        uses: addnab/docker-run-action@v3
+        with:
+          image: ddebtest:focal
+          run: /usr/local/bin/ddeb_test.sh noping
+
+      - name: Build jammy docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: "Dockerfile.jammy"
+          tags: ddebtest:jammy
+          load: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          push: false
+      - name: Run jammy test
+        uses: addnab/docker-run-action@v3
+        with:
+          image: ddebtest:jammy
           run: /usr/local/bin/ddeb_test.sh noping
