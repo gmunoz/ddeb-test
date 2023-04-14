@@ -1,5 +1,5 @@
 FROM ubuntu:jammy
 
 COPY ddeb_test.sh /usr/local/bin
-
+RUN /bin/chmod +x /usr/local/bin/ddeb_test.sh
 CMD ["/usr/local/bin/ddeb_test.sh"]
