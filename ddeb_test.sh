@@ -2,6 +2,13 @@
 
 set -ex
 
+ping="no"
+for arg in "$@"; do
+  if [[ ${arg} == noping ]]; then
+    ping="yes"
+  fi
+done
+
 apt-get update
 apt-get install -y --no-install-recommends lsb-release iputils-ping
 
@@ -21,7 +28,9 @@ tee -a /etc/apt/sources.list.d/ddebs.list
 
 apt-get install -y ubuntu-dbgsym-keyring
 
-ping -c 2 ddebs.ubuntu.com
+if [[ ${ping} == yes ]]; then
+  ping -c 2 ddebs.ubuntu.com
+fi
 
 # Observe output for HTTP 404s/503s and/or warnings about index download
 # failures due to hash mismatches.
